@@ -44,3 +44,12 @@ graph LR
     
     style B fill:#f96,stroke:#333
     style D fill:#3cba54,stroke:#333
+```
+
+## 📸 執行截圖範例
+
+![工作流配置](/images/workflow.png)
+![google sheet設置](/images/Append_row_in_sheet.png)
+![google sheet串接同步成果](/images/google_sheet.png)
+
+本文件由 AI 根據專案 JSON 配置與執行結果自動生成。
