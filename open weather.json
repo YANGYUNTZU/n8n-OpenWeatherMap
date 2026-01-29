@@ -1,0 +1,161 @@
+{
+  "name": "open weather",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-224, -16],
+      "id": "95141ed2-fc61-4f9e-a62d-1c8aff8a9aa4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "5DayForecast",
+        "cityName": "taipei,tw",
+        "language": "zh_tw"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [-16, -16],
+      "id": "9943c32b-e2f9-4e44-b35a-47a90d3ee3b3",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "list",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [192, -16],
+      "id": "7dc01592-8447-4a5f-accb-904298508f6c",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID_HERE",
+          "mode": "id",
+          "cachedResultName": "台北天氣",
+          "cachedResultUrl": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "工作表1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wWlEKAAt6XDu7NOAcv-NlEnmxe3_1MyMhhKWbw05L5w/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "時間": "={{ $json.dt_txt }}",
+            "氣溫": "={{ $json.main.temp }}",
+            "天氣氣候": "={{ $json.weather[0].description }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "時間",
+              "displayName": "時間",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "氣溫",
+              "displayName": "氣溫",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "天氣氣候",
+              "displayName": "天氣氣候",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [400, -16],
+      "id": "bd808c76-9408-4192-bf74-cb98eea1b5c7",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "c00afe3e-a7b3-4a96-abd0-470aca294441",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5051b5a6e931bc26377d55a46a7dc4c1ad409ab4ed8993f1df5078d5bad0ee24"
+  },
+  "id": "NYHS-lMl6BmQb6_4ftKNJ",
+  "tags": []
+}
