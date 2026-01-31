@@ -28,6 +28,7 @@
 1. 在 Google Drive 建立試算表，並將**分頁名稱**保留為預設的「**工作表1**」（或確保 JSON 中的 `sheetName` 與您的分頁名一致）。
 2. 第一行（Header）必須手動建立以下標題：`時間`、`氣溫`、`天氣氣候`。
 3. 從 URL 中複製 **Spreadsheet ID**（位於 `/d/` 與 `/edit` 之間）。
+4. 參考（https://docs.google.com/spreadsheets/d/1wWlEKAAt6XDu7NOAcv-NlEnmxe3_1MyMhhKWbw05L5w/edit?gid=0#gid=0）
 
 ### 3. 匯入與調整 n8n 工作流
 1. 下載並匯入本專案提供的 `open weather.json`。
